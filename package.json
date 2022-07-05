@@ -1,0 +1,25 @@
+{
+  "name": "node-express-mongo-playground",
+  "version": "1.0.0",
+  "description": "A simple Node, Express, Mongoose setup with which to test and practice.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongodb": "^4.7.0",
+    "node": "^18.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathanshine/node-express-mongo-playground.git"
+  },
+  "author": "Jonathan Shine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonathanshine/node-express-mongo-playground/issues"
+  },
+  "homepage": "https://github.com/jonathanshine/node-express-mongo-playground#readme"
+}
