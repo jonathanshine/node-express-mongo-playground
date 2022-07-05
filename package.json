@@ -1,25 +1,33 @@
 {
-  "name": "node-express-mongo-playground",
-  "version": "1.0.0",
-  "description": "A simple Node, Express, Mongoose setup with which to test and practice.",
-  "main": "server.js",
-  "dependencies": {
-    "express": "^4.18.1",
-    "mongodb": "^4.7.0",
-    "node": "^18.4.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jonathanshine/node-express-mongo-playground.git"
-  },
-  "author": "Jonathan Shine",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jonathanshine/node-express-mongo-playground/issues"
-  },
-  "homepage": "https://github.com/jonathanshine/node-express-mongo-playground#readme"
+    "name": "node-express-mongo-playground",
+    "version": "1.0.0",
+    "description": "A simple Node, Express, Mongoose setup with which to test and practice.",
+    "main": "server.js",
+    "dependencies": {
+        "express": "^4.18.1",
+        "mongodb": "^4.7.0",
+        "mongoose": "^6.4.2",
+        "node": "^18.4.0"
+    },
+    "devDependencies": {
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js",
+        "dev": "nodemon server.js"
+    },
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jonathanshine/node-express-mongo-playground.git"
+    },
+    "author": "Jonathan Shine",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/jonathanshine/node-express-mongo-playground/issues"
+    },
+    "homepage": "https://github.com/jonathanshine/node-express-mongo-playground#readme"
 }
