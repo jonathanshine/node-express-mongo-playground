@@ -1,9 +1,7 @@
-// IMPORTS ------------------------------------------
 import express from 'express';
 import cors from 'cors';
 import sensorConfigsRouter from './routes/sensorConfigsRouter.js';
 import './dbConnect.js';
-// --------------------------------------------------
 
 const app = express();
 

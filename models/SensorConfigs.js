@@ -8,7 +8,7 @@ dotenv.config();
 const SensorConfigsSchema = new Schema(
     {
         sensor_version: {
-            type: Number,
+            type: String,
             required: true
         },
         field_names: {
