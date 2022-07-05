@@ -1,7 +1,7 @@
 // IMPORTS ------------------------------------------
 import express from 'express';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
+import sensorConfigsRouter from './routes/sensorConfigsRouter.js';
 import './dbConnect.js';
 // --------------------------------------------------
 
@@ -14,6 +14,7 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.get('/', (req, res) => {
     res.send(`<h1>Node-Express-Mongo-Playground</h1>`);
 });
+app.use('/sensorConfigs', sensorConfigsRouter);
 
 const PORT = 3001;
 app.listen(PORT, () => {
