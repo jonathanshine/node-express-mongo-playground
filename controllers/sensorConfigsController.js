@@ -9,12 +9,12 @@ export const getAllSensorConfigs = async (req, res, next) => {
     }
 };
 
-export const createSensorConfigs = async (req, res, next) => {
+export const createSensorConfig = async (req, res, next) => {
     const data = req.body;
     try {
-        const sensorConfigs = new SensorConfigs(data);
-        const savedSensorConfigs = await sensorConfigs.save();
-        res.json(savedSensorConfigs);
+        const sensorConfig = new SensorConfigs(data);
+        const savedSensorConfig = await sensorConfig.save();
+        res.json(savedSensorConfig);
     } catch (error) {
         next(error);
     }

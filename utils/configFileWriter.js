@@ -1,71 +1,47 @@
+import '../dbConnect.js';
 import * as fs from 'fs';
+import mongoose from 'mongoose';
+import SensorConfigs from '../models/SensorConfigs.js';
 
-const filePath = 'sensorConfigurations/version7.0.json';
-const v7Configuration = {
-    sensor_version: '7.0',
-    field_names: {
-        raw: [
-            'location_id',
-            'created_at',
-            'device_id',
-            't',
-            'rh',
-            'co',
-            'co2',
-            'o3',
-            'nh3',
-            'pm25',
-            'pm10',
-            'no',
-            'no2',
-            'voc',
-            'p',
-            'so2'
-        ],
-        real: [
-            'created_at',
-            'location_id',
-            'device_id',
-            'aqi',
-            't',
-            'rh',
-            'o3_ug_m3',
-            'pm25_ug_m3',
-            'pm10_ug_m3',
-            'no_ug_m3',
-            'no2_ug_m3',
-            'co_mg_m3',
-            'co2_ppm',
-            'nh3_ug_m3',
-            'voc_ppb',
-            'p_hPa',
-            'so2_ug_m3'
-        ]
-    },
-    base_formulas: {
-        o3: '-0.635555 * raw + 99.3178',
-        no2: '2663.83 - 320.72 * LN(raw)',
-        so2: 'raw / 10'
-    },
-    offsets: {
-        raw: {
-            o3: {
-                ND000548: 'conversion/formula',
-                ND000549: 'conversion/formula'
-            }
-        },
-        real: {
-            o3_ug_m3: {
-                ND000548: { formula: 'string', model: 'machine-learning model name' },
-                ND000549: { formula: 'string', model: 'machine-learning model name' }
-            }
-        }
+async function getLatestSensorConfig() {
+    try {
+        const sensorConfig = await SensorConfigs.findOne().sort({ $natural: -1 });
+        return sensorConfig;
+    } catch (error) {
+        console.log(error);
     }
-};
-
-try {
-    fs.writeFileSync(filePath, JSON.stringify(v7Configuration, null, 2), 'utf8');
-    console.log('The file was saved!');
-} catch (err) {
-    console.err('An error has ocurred when saving the file.');
 }
+
+const latestSensorConfig = await getLatestSensorConfig();
+
+const filePath = `sensorConfigurations/version${latestSensorConfig.sensor_version}.json`;
+
+// Check if file exists locally
+if (fs.existsSync(filePath)) {
+    // If it exists, open the file and parse the JSON into an object
+    const sensorConfigFromLocalJSON = fs.readFileSync(filePath);
+    const sensorConfigParsed = JSON.parse(sensorConfigFromLocalJSON);
+
+    // Grab the dates as milliseconds so we can compare if the document fetched from MongoDB is more recent than our local file
+    const dateFromMongo = latestSensorConfig.createdAt.getTime();
+    const dateFromLocalJSON = new Date(sensorConfigParsed.createdAt).getTime();
+    console.log('Mongo date is more recent? --> ', dateFromMongo > dateFromLocalJSON);
+
+    if (dateFromMongo > dateFromLocalJSON)
+        // If the Mongo document is newer, we (over)write the file locally to the repository
+        try {
+            fs.writeFileSync(filePath, JSON.stringify(latestSensorConfig, null, 4), 'utf8');
+            console.log(`File was saved to ${filePath}`);
+        } catch (err) {
+            console.err('An error has ocurred while saving the file.');
+        }
+} else {
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(latestSensorConfig, null, 4), 'utf8');
+        console.log(`File was saved to ${filePath}`);
+    } catch (err) {
+        console.err('An error has ocurred while saving the file.');
+    }
+}
+
+mongoose.connection.close();
