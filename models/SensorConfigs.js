@@ -14,7 +14,15 @@ const SensorConfigsSchema = new Schema(
         field_names: {
             raw: {
                 type: Array
+            },
+            real: {
+                type: Array
             }
+        },
+        base_formulas: Object,
+        offsets: {
+            raw: Object,
+            real: Object
         }
     },
     {

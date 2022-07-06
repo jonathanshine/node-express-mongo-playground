@@ -1,9 +1,8 @@
-import { fs } from 'fs';
+import * as fs from 'fs';
 
 const filePath = 'sensorConfigurations/version7.0.json';
 const v7Configuration = {
-    sensor_version: 7.0,
-    created_at: '2022-01-01T00:00:00.000Z',
+    sensor_version: '7.0',
     field_names: {
         raw: [
             'location_id',
