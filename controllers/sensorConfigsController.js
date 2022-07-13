@@ -19,3 +19,12 @@ export const createSensorConfig = async (req, res, next) => {
         next(error);
     }
 };
+
+export const getLatestConfigForCache = async (req, res, next) => {
+    try {
+        const sensorConfig = await SensorConfigs.findOne().sort({ $natural: -1 });
+        res.json(sensorConfig);
+    } catch (error) {
+        next(error);
+    }
+};
