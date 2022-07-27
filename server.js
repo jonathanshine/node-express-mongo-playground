@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import sensorConfigsRouter from './routes/sensorConfigsRouter.js';
+import calibrationRouter from './routes/calibrationRouter.js';
 import './dbConnect.js';
 
 const app = express();
@@ -13,6 +14,7 @@ app.get('/', (req, res) => {
     res.send(`<h1>Node-Express-Mongo-Playground</h1>`);
 });
 app.use('/sensorConfigs', sensorConfigsRouter);
+app.use('/calibrations', calibrationRouter);
 
 const PORT = 3001;
 app.listen(PORT, () => {
